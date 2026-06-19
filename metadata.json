@@ -1,0 +1,6 @@
+{
+  "name": "KHALAB",
+  "description": "Premium clothing e-commerce website with real-time stock updates, dynamic theme system, reviews, order tracking, custom recommendation engine, and powerful admin panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

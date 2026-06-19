@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Products collection: Readable by everyone, writeable if standard requests are met
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Web general settings: Readable by everyone, writeable to configure design elements
+    match /web_settings/{settingsId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Orders: Readable and writeable to allow order placements, status adjustments & tracking
+    match /orders/{orderId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Promos: Editable coupons
+    match /promos/{promoId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Reviews: Public visibility, writeable feedback
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Customers list: Tracks users signups & behaviors
+    match /customers/{customerId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

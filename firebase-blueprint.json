@@ -1,0 +1,124 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "An e-commerce garment product with size, stock, and media metadata.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique product ID" },
+        "title": { "type": "string", "description": "Title of the product" },
+        "description": { "type": "string", "description": "Sizing and material details" },
+        "price": { "type": "number", "description": "Price in Bangladeshi Taka" },
+        "image": { "type": "string", "description": "Base64 or URL representation of cover image" },
+        "video": { "type": "string", "description": "Optional video URL/link" },
+        "sizes": { "type": "array", "description": "Available stock sizes e.g., M, L, XL" },
+        "stock": { "type": "object", "description": "Real-time key-value sizing stock count e.g., {M: 10, L: 4}" },
+        "category": { "type": "string", "description": "Primary catalog category assignment" },
+        "catalog": { "type": "string", "description": "High level grouping or collection name" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "price", "category", "sizes", "stock"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "An action order placed by a customer containing contact and shipping info.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerAddress": { "type": "string" },
+        "items": { "type": "array" },
+        "totalPrice": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "paymentStatus": { "type": "string" },
+        "orderStatus": { "type": "string", "enum": ["Pending", "Processing", "Shipped", "Delivered", "Canceled"] },
+        "isFake": { "type": "boolean" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerPhone", "customerName", "customerAddress", "items", "totalPrice", "paymentMethod"]
+    },
+    "WebSettings": {
+      "title": "WebSettings",
+      "description": "Universal branding elements, social links, logo, and active color parameters.",
+      "type": "object",
+      "properties": {
+        "brandName": { "type": "string" },
+        "address": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "facebookPage": { "type": "string" },
+        "instagramPage": { "type": "string" },
+        "tagline": { "type": "string" },
+        "logo": { "type": "string" },
+        "heroBanners": { "type": "array" },
+        "banners": { "type": "array" },
+        "categories": { "type": "array" },
+        "catalogs": { "type": "array" },
+        "activeTheme": { "type": "object" }
+      }
+    },
+    "Promo": {
+      "title": "Promo",
+      "description": "Active promo coupons used at checkout.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "discountPercentage": { "type": "number" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["code", "discountPercentage", "isActive"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Product review submitted by customer.",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "reviewerName": { "type": "string" },
+        "comment": { "type": "string" },
+        "rating": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "User profile with history and behavioral metadata.",
+      "type": "object",
+      "properties": {
+        "phone": { "type": "string" },
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "isFake": { "type": "boolean" },
+        "browsingHistory": { "type": "array" },
+        "createdAt": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": " garment garments stored details"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Client customer orders"
+    },
+    "/web_settings/{settingsId}": {
+      "schema": "WebSettings",
+      "description": "Universal style configuration and system variables"
+    },
+    "/promos/{promoId}": {
+      "schema": "Promo",
+      "description": "Promotional discounts codes"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Customer comments and feedback"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Phone-authenticated or registered shoppers"
+    }
+  }
+}
